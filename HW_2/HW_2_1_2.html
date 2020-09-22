@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>All, Elements</title>
+    <!--
+    <style>
+    * {
+        color: Blue;
+        text-decoration: none;
+    }
+    p {
+        color: brown;
+    }
+    .class {
+        color: green;
+    }
+    a {
+        font-weight: bold;
+        font-style: italic;
+        text-decoration: underline;
+    }
+    p, a {
+        text-transform: uppercase;
+    }
+    </style>
+    -->
+</head>
+<body>
+    <h1 class="class1" id="id1">Title</h1>
+    <p class="class">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+    <a href="#">Link</a>
+ 
+    <br>
+    <button onclick="myFunction()">Применить стили</button>
+
+    <script>
+        function myFunction() {
+            var allElements = document.querySelectorAll("*");
+            for (var i = allElements.length - 1; i >= 0; i--) {
+                allElements[i].style.color = "blue" ;
+                allElements[i].style.textDecoration = "none";
+            }
+
+            var findSelector = document.querySelector("p");
+            findSelector.style.color = "brown";
+            
+            findSelector = document.querySelector(".class");
+            findSelector.style.color = "green";
+
+            findSelector = document.querySelector("a");
+            findSelector.style.fontWeight = "bold";
+            findSelector.style.fontStyle = "italic";
+            findSelector.style.textDecoration = "underline";          
+            
+            allElements = document.querySelectorAll("p, a");
+            for (var i = allElements.length - 1; i >= 0; i--) {
+                if ((allElements[i].matches("p")) || (allElements[i].matches("a"))) {
+                    allElements[i].style.textTransform = "uppercase";
+                } 
+            }
+            
+
+            var elems = document.querySelector("h1.class1");
+            elems.className += ' newclass';
+            console.log(elems.style.cssText);
+
+            var elems = document.querySelector("p.class");
+            elems.className += ' newclass';
+            console.log(elems.style.cssText);
+ 
+            findSelector = document.getElementById("id1");
+            findSelector.style.marginTop = "10px";
+            findSelector.style.background = "red"; 
+        }
+    </script> 
+
+
+</body>
+</html>

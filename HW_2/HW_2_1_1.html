@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Id and classes</title>
+    <!--
+    <style>
+        #id1 {
+            color: red;
+        }
+        div.class1 {
+            color: blue;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+    </style>       
+    -->
+</head>
+<body>
+    <h1 id="id1">Title</h1>
+    <div class="class1" >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla consequuntur, obcaecati recusandae enim laboriosam eaque, sint incidunt. Perferendis mollitia incidunt blanditiis eveniet, fuga sapiente. Magni dicta maxime fugiat sint soluta?        
+    </div>
+   
+    <button onclick="myFunction()">Применить стили</button>
+
+    <script>
+        function myFunction() {
+            var findSelector = document.querySelector("#id1");
+            findSelector.style.color = "red";
+
+            findSelector = document.querySelector("div.class1");
+            findSelector.style.color = "blue";
+            findSelector.style.fontSize= "14px";
+            findSelector.style.textDecoration = "underline";          
+
+            
+            var elems = document.querySelector("div.class1");
+            elems.className += ' newclass';
+            console.log(elems.style.cssText);
+ 
+            findSelector = document.getElementById("id1");
+            findSelector.style.marginTop = "10px";
+            findSelector.style.background = "red";            
+        }
+    </script> 
+
+</body>
+</html>
