@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Работа с узлами DOM - методы и свойства</title>
+</head>
+<body>
+    <script>
+        var myChoseElement = {};
+    
+       function addElement() {
+            var mainList = document.getElementById("ListOfElement");
+            var newElement = document.createElement("li");
+                newElement.innerHTML = 'Элемент ' + (mainList.childNodes.length + 1);
+                mainList.appendChild(newElement);
+       };
+
+       function removeElement() {
+            var mainList = document.getElementById("ListOfElement");
+            var remElement = mainList.lastChild;
+                mainList.removeChild(remElement);
+       };
+
+       function addToBegin() {
+        var mainList = document.getElementById("ListOfElement");
+        
+        var newElement = document.createElement("li");
+            newElement.innerHTML = 'Элемент ' + (mainList.childNodes.length + 1);
+            
+            mainList.insertBefore(newElement, mainList.firstChild);
+       };
+
+       function choseFirst() {
+        var mainList = document.getElementById("ListOfElement");
+        var myfirstChild = mainList.firstChild;
+
+        if (myChoseElement.innerHTML) {
+           myChoseElement.style.backgroundColor = '#FFFFFF';
+        }         
+
+        myfirstChild.style.backgroundColor = '#FF0000';
+
+        myChoseElement = myfirstChild; 
+       };
+
+       function choseLast() {
+        var mainList = document.getElementById("ListOfElement");
+        var myLastChild = mainList.lastChild;
+        
+        if (myChoseElement.innerHTML) {
+           myChoseElement.style.backgroundColor = '#FFFFFF';
+        } 
+
+        myLastChild.style.backgroundColor = '#FF0000';
+
+        myChoseElement = myLastChild;
+       };       
+
+       function choseNext() {
+        var myNextElement = {};
+        
+        if (!myChoseElement.innerHTML) {
+            myNextElement = document.getElementById("ListOfElement").firstChild;  
+        } else {           
+            myChoseElement.style.backgroundColor = '#FFFFFF';
+            myNextElement = myChoseElement.nextSibling; 
+            if (!myNextElement){
+                myNextElement = document.getElementById("ListOfElement").firstChild;
+            }
+        }
+                 
+        myNextElement.style.backgroundColor = '#FF0000';
+
+        myChoseElement = myNextElement;
+       };   
+
+       function chosePrev() {
+        var myPrevElement = {};
+        
+        if (!myChoseElement.innerHTML) {
+            myPrevElement = document.getElementById("ListOfElement").firstChild;  
+        } else {
+            myChoseElement.style.backgroundColor = '#FFFFFF';
+            myPrevElement = myChoseElement.previousSibling;
+            if (!myPrevElement){
+                myPrevElement = document.getElementById("ListOfElement").lastChild;
+            }
+        }
+                 
+        myPrevElement.style.backgroundColor = '#FF0000';
+
+        myChoseElement = myPrevElement;
+       };
+
+</script>
+
+<ul id="ListOfElement"><li>Элемент 1</li></ul>
+<form>
+     <input type="button" value="Выбрать первый элемент" onclick="choseFirst()" /> <br>
+     <input type="button" value="Выбрать последний элемент" onclick="choseLast()" /><br>
+     <input type="button" value="Выбрать следующий элемент" onclick="choseNext()" /><br>
+     <input type="button" value="Выбрать предыдущий элемент" onclick="chosePrev()" /><br>
+     <input type="button" value="Добавить элемент" onclick="addElement()" /><br>
+     <input type="button" value="Удалить элемент" onclick="removeElement()" /><br>
+     <input type="button" value="Добавить в начало" onclick="addToBegin()" />
+</form>
+</body>
+</html>
