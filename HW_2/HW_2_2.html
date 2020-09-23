@@ -14,17 +14,20 @@
        // Добавьте после дива с id=one еще один див с текстом two и id=two
        // На клик по id=two добавьте перед ним див с id - two_first, а див с id=two измените на two_second 
 
-       function newdDivClick(myElement) {
-          myElement.id='two_second';
-          myElement.innerHTML='two_second';
-          myElement.insertAdjacentHTML("beforebegin", '<div id="two_first">two_first</div>');
+       var myDiv = {};
+
+       function newdDivClick() {
+
+          myDiv.id='two_second';
+          myDiv.innerHTML='two_second';
+          myDiv.insertAdjacentHTML("beforebegin", '<div id="two_first">two_first</div>');
        }
 
        var myDiv = document.getElementById("one");
        myDiv.insertAdjacentHTML("afterend", '<div id="two">two</div>'); 
        
        myDiv = document.getElementById("two");
-       myDiv.onclick = newdDivClick(myDiv);        
+       myDiv.onclick = newdDivClick;        
 
     </script>
 </body>
