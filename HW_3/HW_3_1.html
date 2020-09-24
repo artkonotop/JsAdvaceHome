@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+</head>
+<body>
+<!-- Создайте счетчик секунд, который начинает отчет с 1 и заканчивается на 30,
+также добавьте кнопки которые останавливают отчет, и запускают его заново и добавьте кнопку
+обнуляющую отcчет. Также попробуйте изменить код так чтобы отсчет начинался с 30 и заканчивался на 1. -->
+
+   <p id="myP">Значение счетчика:</p>
+   <button onclick="Start()">Старт</button>
+   <button onclick="Pause()">Пауза</button>
+   <button onclick="Stop()">Стоп</button>   
+   <button onclick="Start()">Продолжить</button>
+   <button onclick="Reset()">Обнулить</button>
+   <button id="Rev" onclick="Reverse()">Реверс</button>
+
+   <script>
+   
+      var mySecCount = 1;
+      var StopInterval = 0;  
+      var ReverseFlag = false;
+
+      var myP = document.getElementById("myP");
+      var Rev = document.getElementById("Rev");
+      
+      function myInterval() {
+
+        console.log(mySecCount);
+        myP.innerHTML= "Значение счетчика: " + mySecCount;
+
+        if (ReverseFlag) {
+             mySecCount--;
+          } else {
+             mySecCount++;
+          };
+
+        if (mySecCount==31 || mySecCount==0) {
+            clearInterval(StopInterval);
+            if (ReverseFlag) {
+               mySecCount = 30;
+            } else {
+               mySecCount = 1;
+            };
+        };
+          
+      };
+
+      function Start() {
+         StopInterval = setInterval(myInterval, 1000);
+      };
+      
+      function Pause() {
+          clearInterval(StopInterval);
+      }; 
+      
+      function Stop() {
+          clearInterval(StopInterval);
+          if (ReverseFlag) {
+             mySecCount = 30;
+          } else {
+             mySecCount = 1;
+          };
+          
+      };  
+
+      function Reset() {
+        if (ReverseFlag) {
+             mySecCount = 30;
+        } else {
+             mySecCount = 1;
+        };
+      };       
+
+      function Reverse() {
+        if (ReverseFlag) {
+          ReverseFlag = false;
+          Rev.style.color = 'black';
+        } else {
+          ReverseFlag = true;  
+          Rev.style.color = 'red';
+        };
+        
+      };        
+
+
+   </script>
+</body>
+</html>
