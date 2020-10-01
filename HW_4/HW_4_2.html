@@ -1,0 +1,83 @@
+<!-- Доработайте пример, 005_thisExample.html, при наведении мыши к одному из блоков, цвет блока должен измениться, на уникальный, 
+     такой которого еще нету у существующих блоков. Также выведите в блок текстовое оповещение о информации цвета, который используется для фона данного блока. 
+     При попытке закрыть вкладку, придупредите пользователя о том что информация будет утеряна. Используйте window.onload.  
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ключевое слово this</title>
+    <style>
+        div {
+            background-color:green;
+            display: inline-block;
+            height: 100px;
+            width: 100px;
+            margin: 10px;            
+            font-size: 80%;
+        }
+
+        .divText {
+            display: block; 
+            float: left;
+        }  
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+
+        window.onbeforeunload = function() {
+           return 'Ваши изменения могут не сохранится!';
+        };
+
+        var divArr = document.getElementsByTagName("div");
+        var myId = 0;
+
+        function myRandomInt(min, max) {
+             return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        for (var i = 0; i < divArr.length; i++) {
+
+            divArr[i].className="divText";
+
+            divArr[i].onclick = function () {
+                                              this.style.backgroundColor = "red";               
+                                            }
+
+            divArr[i].onmouseover = function () {
+                                                 if (!this.id) {
+                                                   this.id=myId;
+                                                   myId++;                                                       
+                                                 }                                                 
+                                                 switch (this.id) {
+                                                     case "0":                                                           
+                                                         this.style.backgroundColor = "#" + myRandomInt(111111, 222222);                                                                 
+                                                         break;
+                                                     case "1":
+                                                         this.style.backgroundColor = "#" + myRandomInt(222223, 333333);         
+                                                         break;
+                                                     case "2":
+                                                         this.style.backgroundColor = "#" + myRandomInt(333334, 444444);         
+                                                         break;
+                                                     case "3":
+                                                         this.style.backgroundColor = "#" + myRandomInt(444445, 555555);         
+                                                         break;
+                                                     case "4":
+                                                         this.style.backgroundColor = "#" + myRandomInt(555556, 666666);         
+                                                         break;                                                         
+                                                 } 
+
+                                                 this.innerHTML = this.style.backgroundColor;
+                                                               
+                                                }   
+                                            
+        }
+    </script>
+
+</body>
+</html>

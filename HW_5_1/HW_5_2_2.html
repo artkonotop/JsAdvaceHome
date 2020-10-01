@@ -1,0 +1,82 @@
+<!--
+Доработайте пример 004_Attr_Tech.html таким образом, чтобы при наведении на span элементы,
+подсказка сплыва под ними, а не в модальном окне. Используйте addEventListener 
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+      .myDiv {
+        height: 20px;
+        width: 160px;
+      }
+      .hideDiv {
+                 display: none;             
+               }
+  </style>
+  <script>
+    window.onload = function () {
+          var mainDiv = document.getElementById("main-div");
+          var myDivMessage = document.getElementById("myMessage");
+
+          if (mainDiv) {
+
+            mainDiv.addEventListener("mouseover", function(e) {
+                                                      var target = e.target;
+                                                      var dataToggleId = target.getAttribute('data-tooltip');
+
+                                                      if (!dataToggleId) {
+                                                        return
+                                                      }
+                                                      
+                                                      switch (dataToggleId) {
+                                                          case "наведите":
+                                                              myDivMessage.style.textAlign="left";
+                                                              break;
+                                                          case "для":
+                                                              myDivMessage.style.textAlign="center";
+                                                              break;
+                                                          case "подсказки":
+                                                              myDivMessage.style.textAlign="right";
+                                                              break;                                                      
+                                                          default:
+                                                              break;
+                                                      }
+
+                                                      myDivMessage.innerText=dataToggleId;
+                                                      myDivMessage.classList.remove("hideDiv");
+                                                      console.log(myDivMessage.classList);
+                                                  }
+                                    );
+
+            mainDiv.addEventListener("mouseout", function(e) {
+                                                      var target = e.target;
+                                                      var myDiv = target.getAttribute('href');
+                                                      var dataToggleId = target.getAttribute('data-tooltip');
+
+                                                      if (!dataToggleId) {
+                                                        return
+                                                      }
+                                                      
+                                                      myDivMessage.innerText=dataToggleId;
+                                                      myDivMessage.classList.add("hideDiv");
+                                                      console.log(myDivMessage.classList);
+                                                      
+                                                  }
+                                    );                                    
+                                     
+
+          };
+      };
+</script>
+</head>
+<body>
+  <div id="main-div">
+    <span data-tooltip="наведите">наведите</span> 
+    <span data-tooltip="для">для</span>
+    <span data-tooltip="подсказки">подсказки</span>
+  </div>
+  <div class="myDiv hideDiv" id="myMessage"></div>
+</body>
+</html>

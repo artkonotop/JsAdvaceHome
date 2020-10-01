@@ -1,0 +1,46 @@
+﻿<!--
+Создайте ссылку и див с текстом внутри, который изначально при загрузке страницы будет скрыт.
+При клике на ссылку див появляется, если повторно нажать ссылку див и текст должны пропасть.
+Также создайте кнопку, которая будет отменять выполнение обработчика клика по ссылке.
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HW_5_1</title>
+    <style>
+        .hideDiv {
+                   display: none;            
+        }
+    </style>
+      
+    <script type="text/javascript">
+        
+        window.onload = function () {
+            var myA = document.querySelector('a');
+            var myBtn = document.getElementById("myBtn");
+            var myDiv = document.getElementById("myDiv");
+
+            function ShowHideDiv(event) {
+               myDiv.classList.toggle("hideDiv"); 
+               event.preventDefault();
+            };
+
+            function remListener() {
+               myA.removeEventListener("click", ShowHideDiv);
+            };  
+
+            myA.addEventListener('click', ShowHideDiv);   
+            myBtn.addEventListener('click', remListener);
+
+        };
+    </script>            
+</head>
+<body>
+
+    <a href="http:\\google.com\">Показать Div</a>
+    <button id="myBtn">Убрать обработчик c ссылки</button>
+    <div class="hideDiv" id="myDiv">Привет!</div>
+
+</body>
+</html>

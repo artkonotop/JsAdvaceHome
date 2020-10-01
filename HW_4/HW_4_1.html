@@ -1,0 +1,73 @@
+<!-- Напишите регулярные выражения, которые будут выбирать 
+    индекс - 55535 - 5 numbers
+    ip адресс, пример 255.255.255.255
+    цены в долларах - $0.84, $2.84, $4
+    дата в виде - 30/12/2016 - день, месяц, год
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ </head>
+ <body>
+
+    <div>Введите строку</div>
+    <input id="myString" type="text"><br>
+    <button onclick="findIndex()">Найти индекс</button><br>
+    <button onclick="findIP()">Найти ip</button><br>
+    <button onclick="findCost()">Найти цены</button><br>
+    <button onclick="findDate()">Найти дату</button><br>
+    <div id="myOutput"></div>
+
+
+    <script type="text/javascript">
+
+       function myOutput(tagList) { 
+          
+          var myDiv = document.getElementById("myOutput");  
+
+          if (tagList.length===0) {
+            myDiv.innerHTML+='Ниодного элемента не найдено!';  
+          } 
+          for (i=0; i<tagList.length; i++) {
+              myDiv.innerHTML+='Найденый элемент [' + i + '] = ' + tagList[i] + '<br>';
+          }
+       };
+
+       function findIP() {
+    
+          var vString = document.getElementById("myString").value; 
+                    
+          var patt = /\d{3}\.\d{3}\.\d{3}\.\d{3}/g;
+          var tagList = vString.match(patt);
+
+          myOutput(tagList); 
+           
+       }     
+
+       function findCost() {
+    
+          var vString = document.getElementById("myString").value; 
+                    
+          var patt = /\$\d+\.*\d*/g;
+          var tagList = vString.match(patt);
+
+          myOutput(tagList); 
+           
+       } 
+
+       function findDate() {
+    
+          var vString = document.getElementById("myString").value; 
+                    
+          var patt = /\d{2}\/\d{2}\/\d{4}/g;
+          var tagList = vString.match(patt);
+
+          myOutput(tagList); 
+           
+       } 
+            
+ 	</script>
+ </body>
+ </html>

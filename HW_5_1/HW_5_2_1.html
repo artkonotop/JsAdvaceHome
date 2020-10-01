@@ -1,0 +1,47 @@
+<!--Создайте 5 блоков с текстом. Добавьте в каждый из блоков кнопку для его удаления.
+    Используйте только один обработчик.
+-->    
+<!DOCTYPE HTML>
+<html>
+<head>
+      <meta charset="utf-8">
+      <title>HW_5_2_1</title>
+      <script>
+      window.onload = function () {
+          var mybutton = document.getElementsByTagName('button');
+
+          if (mybutton) {
+
+            for (i=0; i<mybutton.length;i++) {
+               
+               mybutton[i].addEventListener("click", function(e) {
+                                                         var target = e.target;
+                                                         target.parentNode.innerHTML='';
+                                                     }
+                                           );
+            };   
+          };
+            
+      };
+    </script>
+
+</head>
+<body>
+    <div>Блок 1
+        <button id="myBtn1">Удалить блок</button>
+    </div>
+    <div>Блок 2
+        <button id="myBtn2">Удалить блок</button>
+    </div>
+    <div>Блок 3
+        <button id="myBtn3">Удалить блок</button>
+    </div>
+    <div>Блок 4
+        <button id="myBtn4">Удалить блок</button>
+    </div>
+    <div>Блок 5
+        <button id="myBtn5">Удалить блок</button>
+    </div>
+
+</body>
+</html>
