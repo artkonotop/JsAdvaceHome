@@ -1,0 +1,65 @@
+    <!-- 
+	1. back to top button; drag;
+    -->
+    
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>HW_6_1</title>
+        <style>
+            .myDivStyle {
+              height: 100px;
+              width: 100px;
+              background: red;
+              position: absolute;
+            }
+
+            .myButtonStyle {
+              position: absolute;
+            }
+
+        </style>
+        <script>
+          window.onload = function () {
+                var myDiv = document.getElementById('myDiv');
+                var rectangle = myDiv.getBoundingClientRect();               
+                var startPosX = rectangle.x;  
+                var startPosY = rectangle.y;
+                var myButton = document.getElementById('myButton');
+                 
+                myButton.style.top = (rectangle.x + myDiv.offsetHeight) + 'px'; 
+                
+
+                var divOffsetX = 0; 
+                var divOffsetY = 0;
+
+                myDiv.addEventListener("dragstart", function(e) {
+                                                              rectangle = myDiv.getBoundingClientRect();
+                                                              divOffsetX = e.pageX - rectangle.x; 
+                                                              divOffsetY = e.pageY - rectangle.y;
+                                                         }
+                                         );                
+
+                myDiv.addEventListener("dragend", function(e) {
+                                                                myDiv.style.left = e.pageX - divOffsetX + 'px';
+                                                                myDiv.style.top = e.pageY - divOffsetY + 'px';                                                             
+                                                              }
+                                         );
+
+                myButton.addEventListener("click", function(e) {
+                                                                myDiv.style.left = startPosX + 'px';
+                                                                myDiv.style.top = startPosY + 'px';
+                                                              }
+                                         );
+
+          };
+        </script>
+    
+    </head>
+    <body>
+        <div id="myDiv" class="myDivStyle" draggable = "true"></div>  
+    <button id="myButton" class="myButtonStyle">Востановить позицию</button><br> 
+    </body>
+    </html>    
+

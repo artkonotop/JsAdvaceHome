@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Пример проверки достоверности ввода</title>
+    <script type="text/javascript" src="Validate.js"></script>
+    <style type="text/css">
+        input.invalid {
+            background-color: Pink;
+        }
+
+        input.valid {
+            background-color: LightGreen;
+        }
+    </style>
+</head>
+<body>
+    <!--
+      Для проверки елемента в соответствии с предопределенным шаблоном достаточно указать для него атрибут "check-type", 
+      а в качестве значения нужно передать название шаблона (name|email|zip|submit), при этом снимается ограничение на количество и название форм, а также их элементов.
+      Примером может являться ниже закоментированый кусок, для его добавления не требуется вносить изменения в файл Validate.js
+    --> 
+    <form name="form1" check-type="submit">
+            Name:
+        <input type="text" name="userName" check-type="name" /><br />
+            email:
+        <input type="text" name="email" check-type="email"/><br />
+            zipcode:
+        <input type="text" name="zip" check-type="zip" /><br />
+        <input type="submit"/>
+    </form>
+    
+    <!--
+    <form name="f2" check-type="submit">
+            Name:
+        <input type="text" name="uN1" check-type="name" /><br />
+            email:
+        <input type="text" name="e1" check-type="email"/><br />
+            zipcode:
+        <input type="text" name="z1" check-type="zip" /><br />
+        <input type="submit"/>
+    </form>    
+    -->
+</body>
+</html>

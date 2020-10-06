@@ -1,0 +1,80 @@
+    <!-- 
+	2. создайте div, при клике на него, div начинает двигаться вправо, при клике на кнопку - останавливается,
+	при попадании div к краю окна, он переходит к началу окна.
+    -->
+    
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>HW_6_2</title>
+        <style>
+            .myDivStyle {
+              height: 100px;
+              width: 100px;
+              background: red;
+              position: absolute;
+            }
+
+            .myButtonStyle {
+              position: absolute;
+            }
+
+        </style>
+        <script>
+          var myBody = document.getElementsByTagName('body');
+          var StopInterval = 0;
+          var StartFlag = 0;
+
+          window.onload = function () {
+                
+                var myDiv = document.getElementById('myDiv');
+                var rectangle = myDiv.getBoundingClientRect();               
+                var startPosX = rectangle.x;  
+
+                var myButton = document.getElementById('myButton');
+                 
+                myButton.style.top = (rectangle.x + myDiv.offsetHeight) + 'px'; 
+                
+                var divOffsetX = startPosX; 
+
+                function myDivMove() {
+                         myDiv.style.left = divOffsetX +  'px';
+                         divOffsetX++;
+                         if (divOffsetX==myBody[0].clientWidth) {
+                            divOffsetX=startPosX-99;
+                         }
+                };
+
+                function startMove() { 
+                   StartFlag =1;
+                   StopInterval = setInterval(myDivMove, 10);
+                };
+      
+                function stopMove() {
+                   clearInterval(StopInterval);
+                }; 
+
+                myDiv.addEventListener("click", function(e) {
+                                                              if (StartFlag==0) {
+                                                                startMove();                                                            
+                                                              }                                                              
+                                                            }
+                                      );
+
+                myButton.addEventListener("click", function(e) {
+                                                                 stopMove();
+                                                                 StartFlag=0;
+                                                               }
+                                         );
+
+          };
+        </script>
+    
+    </head>
+    <body>
+        <div id="myDiv" class="myDivStyle"></div>  
+    <button id="myButton" class="myButtonStyle">Стоп</button><br> 
+    </body>
+    </html>    
+
