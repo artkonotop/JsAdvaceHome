@@ -1,0 +1,51 @@
+<!-- Реализуйте последние 2 слайда в презентации с помощью пройденого на уроке материала -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW_7_3</title>
+    <script type="text/javascript">
+
+        function Doctor() {
+            this.walk = function () {
+                document.write("Доктор может ходить<br />");
+            };
+            this.Eat = function () {
+                document.write("Доктор может есть<br />");
+            };
+            this.Drink = function () {
+                document.write("Доктор может пить<br />");
+            };
+            this.Cure = function () {
+                document.write("Доктор может лечить<br />");
+            };
+        };
+        
+        function Dentist() {
+            this.Cure = function () {
+                document.write("Дантист может лечить зубы<br />");
+            };
+        };
+
+        function Surgeon(name, walkSpeed) {
+            this.Cure = function () {
+                document.write("Хирург может выполнять операции<br />");
+            };
+        };
+
+        Dentist.prototype = new Doctor();
+        Surgeon.prototype = new Doctor();
+
+        var doctor = new Doctor();
+        var dentist = new Dentist();
+        var surgeon = new Surgeon();
+
+        doctor.Cure();
+        dentist.Cure();
+        surgeon.Cure();
+
+    </script>
+</head>
+<body>
+</body>
+</html>

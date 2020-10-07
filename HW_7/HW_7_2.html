@@ -1,0 +1,46 @@
+<!-- Реализуйте последние 2 слайда в презентации с помощью пройденого на уроке материала -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW_7_2</title>
+    <script type="text/javascript">
+
+        function Man() {
+            this.walk = function () {
+                document.write("Мужчина может ходить<br />");
+            };
+            this.Eat = function () {
+                document.write("Мужчина может есть<br />");
+            };
+            this.Drink = function () {
+                document.write("Мужчина может пить<br />");
+            };
+        };
+        
+        function Doctor() {
+            this.Cure = function () {
+                document.write("Доктор может лечить<br />");
+            };
+        };
+
+        function Solder(name, walkSpeed) {
+            this.Shoot = function () {
+                document.write("Солдат может стрелять<br />");
+            };
+        };
+
+        Doctor.prototype = new Man();
+        Solder.prototype = new Man();
+
+        var doctor = new Doctor();
+        var solder = new Solder();
+
+        doctor.Cure();
+        solder.Shoot();
+
+    </script>
+</head>
+<body>
+</body>
+</html>
