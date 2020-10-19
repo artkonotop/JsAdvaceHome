@@ -1,0 +1,83 @@
+﻿    <!-- Создайте страницу которая запрашивает имя пользователя, если пользователь вводит "Admin" либо "admin" он попадает на страницу,
+    которая оповещает его о том что " Пользоваетль Admin(не статическая строка, а данные что ввел пользователь) вошел в систему"
+    а рядом разместите кнопку "Выход" которая вернет пользователя к модальному окну ввода логина. Реализуйте код как для куки так и для localstorage. -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HW_8_1</title>
+    <style>
+        .hideDiv {
+                   display: none;            
+        }
+    </style>
+
+    <script>
+        var myUserName = '';  
+        var validUser = false; 
+
+        function getCookieValue(CookieName) {
+            var a = document.cookie.split('; ');
+            for (var i = 0; i < a.length; i++) {
+               if (a[i].split('=')[0]==CookieName) {    
+                 return a[i].split('=')[1]; 
+               }
+            }
+        }
+
+        if (!getCookieValue("myUser1")) {
+           document.cookie = "myUser1=Admin; max-age=604800";         
+        }
+        
+        if (!getCookieValue("myUser2")) {
+           document.cookie = "myUser2=admin; max-age=604800";
+        }
+
+
+        function CheckUser() {
+            myUserName = prompt("Введите имя пользователя:"); 
+
+            switch (myUserName) {
+                case getCookieValue("myUser1"): return true;               
+                break;
+                case getCookieValue("myUser2"): return true;                
+                break;        
+                default: return false;
+                break;
+            }      
+
+        }
+
+        validUser = CheckUser();
+
+    </script>
+</head>
+<body>
+    <div id="DivId" class="hideDiv"></div>
+    <input id="BtnId" type="button" class="hideDiv" value="Выход" onclick="myBtnClick()"/> 
+
+    <script>
+
+        function myBtnClick() {
+            var myDiv = document.getElementById("DivId");
+            var myBtn = document.getElementById("BtnId");
+
+            if (CheckUser()) {               
+               myDiv.innerHTML='Пользоваетль "'+myUserName+'"  вошел в систему!';
+            } else {
+               myDiv.classList.toggle("hideDiv"); 
+               myBtn.classList.toggle("hideDiv");
+            }  
+        }        
+
+        if (validUser) {
+               var myDiv = document.getElementById("DivId");
+               var myBtn = document.getElementById("BtnId"); 
+
+               myDiv.innerHTML='Пользоваетль "'+myUserName+'"  вошел в систему!';
+               myDiv.classList.toggle("hideDiv"); 
+               myBtn.classList.toggle("hideDiv");
+            } 
+    </script>
+</body>
+</html>
