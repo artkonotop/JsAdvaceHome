@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>My Project</title>
+  <style>
+	   body {
+         background-image: url(zvezda_smerti.jpg);  
+	   }
+	   	 
+	   #myDiv {
+		   width: 170px;
+       }
+     
+       #myDivBtn {
+         text-align: center;
+	     width: 170px;
+	   }
+	   
+       td {
+           background: linear-gradient(#d2ffbd, #a8f783 48%,#84fa4e 52%, #60ff17); 
+           border: 1px solid rgb(100, 216, 5);
+           border-radius: 10px;
+           padding: 15px 20px;
+		   text-align: center		   
+		 } 
+		
+		#btnPrevious {
+		   background: linear-gradient(#d2ffbd, #a8f783 48%,#84fa4e 52%, #60ff17); 
+           border: 1px solid rgb(100, 216, 5);
+		}
+
+		#btnNext {
+		   background: linear-gradient(#d2ffbd, #a8f783 48%,#84fa4e 52%, #60ff17); 
+           border: 1px solid rgb(100, 216, 5);
+		}		
+		 
+	  /*Стили для информационного меню*/
+	 .menu_info {
+		text-align: center; 
+		border-radius: 40px 40px 0px 0px;
+        position: fixed;
+        display: block;
+        width: auto;
+        height: auto;
+        left: -500px;
+        
+  
+        top: 10px;
+        z-index: 1;
+        background: linear-gradient(#d2ffbd, #a8f783 48%,#84fa4e 52%, #60ff17); 
+        transition: left 1s;
+      }
+
+     .menu_info.active {
+	    text-align: center;
+		left: 40%;
+     }
+
+     .menu_close {
+		border: none; 
+		background: linear-gradient(#ffbdbd, #f78383 48%,#e76e6e 52%, #fc6262); 
+		transform: scale(0);
+		transition: transform 1s;		
+	}
+
+	.menu_close-active {
+		border: none; 
+		transform: scale(1);
+		transition: transform 1s 1s;
+	}	 
+
+  </style>
+
+</head>
+<body>
+
+  <div id="myDiv"></div>
+  <div id="myDivBtn">
+     <input id="btnPrevious" type="button" value="<" onclick="myPrevious()"/> 
+     <input id="btnNext" type="button" value=">" onclick="myBtnNext()"/> 
+  </div>
+  <div class="menu_info ">
+	  <button class="menu_close">X</button>
+	  <div id="myInfo"></div>
+  </div>
+
+  
+  <script type="text/javascript">
+
+    var infoByName;
+    var Prev; 
+    var Next;
+ 		
+	var url = 'https://swapi.dev/api/people/';
+
+    function myPrevious(nameArr) {
+      if (Prev) {
+         fetchAllData(Prev);    
+      }
+    }  
+
+    function myBtnNext(nameArr) {
+        fetchAllData(Next);    
+    } 
+
+    document.querySelector('.menu_close').addEventListener('click', function () {
+           document.querySelector('.menu_info').classList.remove('active');
+           document.querySelector('.menu_close').classList.remove('menu_close-active');
+    });
+
+	function nameClick(mytd) {
+	  if (window.localStorage.selectedTd) {
+		var oldSelTd = document.getElementById(window.localStorage.selectedTd);  
+		oldSelTd.style.fontWeight="normal";
+	  }
+
+	  window.localStorage.selectedTd = mytd.id;
+	  mytd.style.fontWeight="bolder";
+
+      var arrLinkObj = [];
+	  for (var i=0;i<infoByName[mytd.id].films.length;i++) {
+	      arrLinkObj[i] = fetch(infoByName[mytd.id].films[i]).then(function (response) {
+                         return response.json();
+					   });
+	   }
+
+	   if (!!infoByName[mytd.id].homeworld) {
+	   arrLinkObj[arrLinkObj.length] = fetch(infoByName[mytd.id].homeworld).then(function (response) {
+                         return response.json();
+					   });
+	   } 					   
+			   
+	   if (!!infoByName[mytd.id].species[0]) {
+	   arrLinkObj[arrLinkObj.length] = fetch(infoByName[mytd.id].species[0]).then(function (response) {
+                        return response.json();
+					   });   
+	   }
+	   
+	  Promise.all(arrLinkObj).then(function(Linkdata) {
+		getPeopleInfo(infoByName[mytd.id], Linkdata);
+	  });
+	  
+      document.querySelector('.menu_info').classList.add('active');
+      document.querySelector('.menu_close').classList.add('menu_close-active');
+    } 
+
+    function workWithData(jData) {
+
+      Prev = jData.previous; 
+      Next = jData.next;
+      
+      getPeopleName(jData.results); 
+
+    }
+
+
+    function getPeopleName(nameArr) {
+
+	  infoByName = nameArr;	
+
+      var html='<table>';
+      for (var i=0;i<nameArr.length;i++){
+        html+='<tr><td id='+ i +' onclick="nameClick(this)">'+nameArr[i].name+'</td></tr>';
+      }
+      html+='</table>';
+                                             
+	  var mydiv = document.getElementById("myDiv").innerHTML=html;
+      mydiv.innerHTML=html;
+    }
+		
+
+    function getPeopleInfo(info, Linkdata) {
+	  var sFilms = '';
+	  var sHomeworld = '';
+	  var sSpecies = '';
+	  
+	  for (var i=0;i<Linkdata.length;i++){
+		if (typeof(Linkdata[i].title) !== 'undefined') { 
+            sFilms+=Linkdata[i].title + '<br>';
+		} else if (typeof(Linkdata[i].rotation_period) !== 'undefined') { 
+			sHomeworld = Linkdata[i].name;
+		}
+		else if (typeof(Linkdata[i].classification) !== 'undefined') { 
+			sSpecies = Linkdata[i].name;
+		}	
+	  }
+
+      var html='<table>'+
+		'<th colspan="2" style="font-size:150%">' +info.name + '</th>' +
+		'<tr>'+
+          '<td>Birth_year</td>'+
+          '<td>'+info.birth_year+'</td>'+
+        '</tr>'+
+		'<tr>'+
+          '<td>Gender</td>'+
+          '<td>'+info.gender+'</td>'+
+		'</tr>'+
+		'<tr>'+
+          '<td>Films</td>'+
+          '<td>'+sFilms+'</td>'+
+		'</tr>'+
+		'<tr>'+
+          '<td>Homeworld</td>'+
+          '<td>'+sHomeworld+'</td>'+
+		'</tr>'+
+		'<tr>'+
+          '<td>Species</td>'+
+          '<td>'+ sSpecies +'</td>'+
+        '</tr>'+						   
+	  '</table>';
+	                                         
+	  var mydiv = document.getElementById("myInfo").innerHTML=html;
+	  mydiv.innerHTML=html;
+	  
+	}	
+
+    function fetchAllData(url) {		
+      fetch(url)
+			.then(function (resp) {
+    			                     return resp.json();
+					              }
+		         ).then(function (data) {
+                                         workWithData(data);
+							            }
+	             ).catch(function (err) {
+                                         console.error(err)
+									    });
+    }
+
+	fetchAllData(url);
+	      
+   </script>
+</body>
+</html>
